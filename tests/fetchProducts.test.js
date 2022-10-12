@@ -18,10 +18,5 @@ describe('1 - Teste a função fetchProducts', () => {
     const response = await fetchProducts('computador');
     expect(response).toEqual(computadorSearch);
   })
-  test('Verifica se a função fetchProducts retorna o esperado', async () => {
-    const response = await fetchProducts();
-    expect(response).toEqual('You must provide an url');
-  })
-  // fail('Teste vazio');
 });
 
