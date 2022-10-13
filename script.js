@@ -72,7 +72,9 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-const recebeItensApi = async () => {
+// Funções eu criei //
+
+const getProductApi = async () => {
     const response = await fetchProducts('computador');
     const getSectionItens = document.querySelector('.items');
     response.forEach((element) => {
@@ -81,5 +83,5 @@ const recebeItensApi = async () => {
 };
 
 window.onload = () => {
-  recebeItensApi();
+  getProductApi();
  };

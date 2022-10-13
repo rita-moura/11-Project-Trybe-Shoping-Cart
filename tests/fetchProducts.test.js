@@ -17,6 +17,10 @@ describe('1 - Teste a função fetchProducts', () => {
   test('Verifica se a função fetchProducts retorna o esperado', async () => {
     const response = await fetchProducts('computador');
     expect(response).toEqual(computadorSearch);
-  })
+  });
+/*   test('Verifica se a função fetchProducts retorna o esperado', async () => {
+    const response = await fetchProducts('computador');
+    expect(response).toEqual(new Error('You must provide an url'));
+  }); */
 });
 
