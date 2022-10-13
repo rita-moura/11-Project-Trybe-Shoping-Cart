@@ -19,9 +19,12 @@ describe('2 - Teste a função fetchItem', () => {
     const response = await fetchItem('MLB1615760527');
     expect(response).toEqual(item);
   })
-/*   test('Verifica se a função fetchProducts retorna o esperado', async () => {
-    const response = await fetchItem('MLB1615760527');
-    expect(response).toEqual(new Error('You must provide an url'));
-  }) */
+  test('Verifica se a função fetchProducts retorna o esperado', async () => {
+    try {
+      await fetchItem();
+    } catch (error) {
+        expect(error).toEqual(new Error('You must provide an url'));
+    };
+  })
   // fail('Teste vazio');
 });

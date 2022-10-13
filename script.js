@@ -30,6 +30,31 @@ const createCustomElement = (element, className, innerText) => {
 };
 
 /**
+ * Função responsável por criar e retornar um item do carrinho.
+ * @param {Object} product - Objeto do produto.
+ * @param {string} product.id - ID do produto.
+ * @param {string} product.title - Título do produto.
+ * @param {string} product.price - Preço do produto.
+ * @returns {Element} Elemento de um item do carrinho.
+ */
+ const createCartItemElement = ({ id, title, price }) => {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
+  // li.addEventListener('click', cartItemClickListener);
+  return li;
+};
+
+// função do requisito 4 //
+const olCartItems = document.querySelector('.cart__items');
+const getCartId = ({ target }) => {
+  const eventId = target.parentNode.childNodes[0].innerText;
+  fetchItem(eventId).then((element) => {
+    olCartItems.appendChild(createCartItemElement(element));
+  });
+};
+
+/**
  * Função responsável por criar e retornar o elemento do produto.
  * @param {Object} product - Objeto do produto. 
  * @param {string} product.id - ID do produto.
@@ -45,6 +70,8 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  const addCartItem = document.querySelectorAll('.item__add');
+  addCartItem.forEach((element) => element.addEventListener('click', getCartId));
 
   return section;
 };
@@ -56,24 +83,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  */
 const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
-/**
- * Função responsável por criar e retornar um item do carrinho.
- * @param {Object} product - Objeto do produto.
- * @param {string} product.id - ID do produto.
- * @param {string} product.title - Título do produto.
- * @param {string} product.price - Preço do produto.
- * @returns {Element} Elemento de um item do carrinho.
- */
-const createCartItemElement = ({ id, title, price }) => {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-};
-
-// Funções eu criei //
-
+/// função do requisito 2 ////
 const getProductApi = async () => {
     const response = await fetchProducts('computador');
     const getSectionItens = document.querySelector('.items');
