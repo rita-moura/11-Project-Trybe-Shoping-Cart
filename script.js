@@ -29,6 +29,14 @@ const createCustomElement = (element, className, innerText) => {
   return e;
 };
 
+// função requisito 5 ///
+
+const cartItemClickListener = ({ target }) => {
+/*   const getLiCart = document.querySelectorAll('.item__add');
+  target.getLiCart.innerText = ''; */
+
+};
+
 /**
  * Função responsável por criar e retornar um item do carrinho.
  * @param {Object} product - Objeto do produto.
@@ -41,13 +49,14 @@ const createCustomElement = (element, className, innerText) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  // li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', cartItemClickListener);
   return li;
 };
 
 // função do requisito 4 //
-const olCartItems = document.querySelector('.cart__items');
+
 const getCartId = ({ target }) => {
+  const olCartItems = document.querySelector('.cart__items');
   const eventId = target.parentNode.childNodes[0].innerText;
   fetchItem(eventId).then((element) => {
     olCartItems.appendChild(createCartItemElement(element));
@@ -70,8 +79,8 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-  const addCartItem = document.querySelectorAll('.item__add');
-  addCartItem.forEach((element) => element.addEventListener('click', getCartId));
+  const getLiCart = document.querySelectorAll('.item__add');
+  getLiCart.forEach((element) => element.addEventListener('click', getCartId));
 
   return section;
 };
