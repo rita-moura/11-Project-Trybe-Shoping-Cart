@@ -31,10 +31,9 @@ const createCustomElement = (element, className, innerText) => {
 
 // função requisito 5 ///
 
-const cartItemClickListener = ({ target }) => {
-/*   const getLiCart = document.querySelectorAll('.item__add');
-  target.getLiCart.innerText = ''; */
-
+const cartItemClickListener = () => {
+  const getLiCart = document.querySelector('.cart__item');
+  getLiCart.remove();
 };
 
 /**
@@ -56,10 +55,10 @@ const cartItemClickListener = ({ target }) => {
 // função do requisito 4 //
 
 const getCartId = ({ target }) => {
-  const olCartItems = document.querySelector('.cart__items');
+  const getOlCartItems = document.querySelector('.cart__items');
   const eventId = target.parentNode.childNodes[0].innerText;
   fetchItem(eventId).then((element) => {
-    olCartItems.appendChild(createCartItemElement(element));
+    getOlCartItems.appendChild(createCartItemElement(element));
   });
 };
 
@@ -79,8 +78,8 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-  const getLiCart = document.querySelectorAll('.item__add');
-  getLiCart.forEach((element) => element.addEventListener('click', getCartId));
+  const getButtonCart = document.querySelectorAll('.item__add');
+  getButtonCart.forEach((element) => element.addEventListener('click', getCartId));
 
   return section;
 };
