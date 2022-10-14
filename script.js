@@ -29,7 +29,7 @@ const createCustomElement = (element, className, innerText) => {
   return e;
 };
 
-// função requisito 5 ///
+// função requisito 5 - responsável por retirar o item clicado da lista do carrinho de compras///
 
 const cartItemClickListener = () => {
   const getLiCart = document.querySelector('.cart__item');
@@ -52,7 +52,7 @@ const cartItemClickListener = () => {
   return li;
 };
 
-// função do requisito 4 //
+// função do requisito 4 - responsável por incluir o elemento clicado no carrinho//
 
 const getCartId = ({ target }) => {
   const getOlCartItems = document.querySelector('.cart__items');
@@ -91,7 +91,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  */
 const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
-/// função do requisito 2 ////
+/// função do requisito 2 - reponsável por renderizar os produtos da Api no HTML ////
 const getProductApi = async () => {
     const response = await fetchProducts('computador');
     const getSectionItens = document.querySelector('.items');
@@ -100,6 +100,17 @@ const getProductApi = async () => {
     });
 };
 
+/// função requisito 10 - reponsável por limpar o crrinho de compras quando clicar no botão ///
+const cartItemClearButtonOl = () => {
+  const getOlCart = document.querySelector('.cart__items');
+  getOlCart.innerText = '';
+};
+
+const clearButtonCart = () => {
+  const getClearButtonCart = document.querySelector('.empty-cart');
+  getClearButtonCart.addEventListener('click', cartItemClearButtonOl);
+};
+clearButtonCart();
 window.onload = () => {
   getProductApi();
  };
