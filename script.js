@@ -78,6 +78,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  
   const getButtonCart = document.querySelectorAll('.item__add');
   getButtonCart.forEach((element) => element.addEventListener('click', getCartId));
 
