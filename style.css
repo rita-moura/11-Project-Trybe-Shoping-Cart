@@ -100,10 +100,14 @@ body {
   border: 2px solid rgb(234, 234, 233);
   border-radius: 5px;
   box-sizing: border-box;
+  text-align: center;
+  font-family: monospace;
+  padding-top: 8px;
 }
 
 .item .item__id {
   display: none;
+  font-family: monospace;
 }
 
 .item .item__title {
@@ -112,6 +116,7 @@ body {
   flex-grow: 1;
   padding: 10px;
   text-align: center;
+  font-family: monospace;
 }
 
 .item .item__image {
@@ -121,6 +126,7 @@ body {
 .item .item__add {
   background-color: rgb(5, 52, 219);
   border: 0;
+  border-radius: 5px;
   cursor: pointer;
   margin: 0;
   padding: 10px;
@@ -146,4 +152,12 @@ body {
   margin: 0 auto;
   border: 2px solid rgb(5, 52, 219);
   background-color: rgb(249, 249, 246);
+  border-radius: 5px;
 }
+
+.cart__item {
+  margin: 5px;
+  padding: 5px;
+  font-family: monospace;
+}
+

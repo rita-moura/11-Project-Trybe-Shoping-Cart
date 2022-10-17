@@ -53,7 +53,6 @@ const cartItemClickListener = () => {
 };
 
 // função do requisito 4 - responsável por incluir o elemento clicado no carrinho//
-
 const getCartId = ({ target }) => {
   const getOlCartItems = document.querySelector('.cart__items');
   const eventId = target.parentNode.childNodes[0].innerText;
@@ -92,6 +91,12 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  */
 const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
+// Requisito 11 - adiciona texto carregando....
+const removeloading = () => {
+  const getDivLoading = document.querySelector('.loading');
+  getDivLoading.remove();
+};
+
 /// função do requisito 2 - reponsável por renderizar os produtos da Api no HTML ////
 const getProductApi = async () => {
     const response = await fetchProducts('computador');
@@ -99,6 +104,7 @@ const getProductApi = async () => {
     response.forEach((element) => {
       getSectionItens.appendChild(createProductItemElement(element));
     });
+    removeloading();
 };
 
 /// função requisito 10 - reponsável por limpar o crrinho de compras quando clicar no botão ///
@@ -111,7 +117,9 @@ const clearButtonCart = () => {
   const getClearButtonCart = document.querySelector('.empty-cart');
   getClearButtonCart.addEventListener('click', cartItemClearButtonOl);
 };
+
 clearButtonCart();
+
 window.onload = () => {
   getProductApi();
  };
