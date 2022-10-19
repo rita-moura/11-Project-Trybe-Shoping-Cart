@@ -29,12 +29,29 @@ const createCustomElement = (element, className, innerText) => {
   return e;
 };
 
-// função requisito 5 - responsável por retirar o item clicado da lista do carrinho de compras///
-
+// Requisito 5 - responsável por retirar o item clicado da lista do carrinho de compras///
 const cartItemClickListener = () => {
   const getLiCart = document.querySelector('.cart__item');
   getLiCart.remove();
 };
+
+const verifyLocalStorage = () => {
+  if (!localStorage.cartItems) localStorage.setItem('cartItems', '[]');
+};
+
+const infoLocalStorage = (id, title, price, getKeyLocalStorage) => {
+  verifyLocalStorage();
+  const getLocalStorage = JSON.parse(getKeyLocalStorage('cartItems'));
+  const objectSaveLocalStorage = { 
+    id,
+    title,
+    price, 
+  };
+  getLocalStorage.push(objectSaveLocalStorage);
+  return saveCartItems(JSON.stringify(getLocalStorage));
+};
+
+// {id: "MLB2863633145", title: "Pc Gamer Completo I5 16gb Ssd Monitor + Kit Gamer ", price: 2567}
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -45,6 +62,7 @@ const cartItemClickListener = () => {
  * @returns {Element} Elemento de um item do carrinho.
  */
  const createCartItemElement = ({ id, title, price }) => {
+  infoLocalStorage(id, title, price, getSavedCartItems);
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
@@ -52,13 +70,18 @@ const cartItemClickListener = () => {
   return li;
 };
 
-// função do requisito 4 - responsável por incluir o elemento clicado no carrinho//
+// Requisito 4 - responsável por incluir o elemento clicado no carrinho//
+const getOlCartItems = document.querySelector('.cart__items');
 const getCartId = ({ target }) => {
-  const getOlCartItems = document.querySelector('.cart__items');
   const eventId = target.parentNode.childNodes[0].innerText;
   fetchItem(eventId).then((element) => {
     getOlCartItems.appendChild(createCartItemElement(element));
   });
+};
+
+const addLocalStorageCart = (getInfoLocalStorage) => {
+  const getLocalStorage = JSON.parse(getInfoLocalStorage);
+  getLocalStorage.forEach((element) => getOlCartItems.appendChild(createCartItemElement(element)));
 };
 
 /**
@@ -91,23 +114,23 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  */
 const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
-// Requisito 11 - adiciona texto carregando....
-const removeloading = () => {
+// Requisito 11 - adiciona texto carregando... ate a requisição da API terminar //
+const removeLoading = () => {
   const getDivLoading = document.querySelector('.loading');
   getDivLoading.remove();
 };
 
-/// função do requisito 2 - reponsável por renderizar os produtos da Api no HTML ////
-const getProductApi = async () => {
+// Requisito 2 - reponsável por renderizar os produtos da Api no HTML ////
+const renderProductApi = async () => {
     const response = await fetchProducts('computador');
     const getSectionItens = document.querySelector('.items');
     response.forEach((element) => {
       getSectionItens.appendChild(createProductItemElement(element));
     });
-    removeloading();
+    removeLoading();
 };
 
-/// função requisito 10 - reponsável por limpar o crrinho de compras quando clicar no botão ///
+// Requisito 10 - reponsável por limpar o crrinho de compras quando clicar no botão ///
 const cartItemClearButtonOl = () => {
   const getOlCart = document.querySelector('.cart__items');
   getOlCart.innerText = '';
@@ -119,7 +142,8 @@ const clearButtonCart = () => {
 };
 
 clearButtonCart();
-
 window.onload = () => {
-  getProductApi();
+  renderProductApi();
+  verifyLocalStorage();
+  addLocalStorageCart(getSavedCartItems('cartItems'));
  };
